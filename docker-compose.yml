@@ -1,0 +1,17 @@
+version: '3.0'
+
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: test_db
+  web:
+    build: .
+    command: ["./wait-for-it.sh", "db:3306", "--", "python3", "manage.py", "runserver", "0.0.0.0:8000"]
+    volumes:
+      - ./application:/application
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
