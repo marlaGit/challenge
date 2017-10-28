@@ -5,5 +5,7 @@
 {% block main %}
 <h2> {{questionnaire.title}}</h2>
 <img src={% url 'pie_result' pk=questionnaire.pk %}></img>
+<a href="/questionnaires/">Back to questionnaires list</a>
 {% endblock %}
+
 

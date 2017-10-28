@@ -49,7 +49,6 @@ class QuestionnaireViewSet(viewsets.ViewSet):
 		questionnaire = get_object_or_404(self.queryset, pk=pk)
 		serializer = QuestionnaireSerializer(questionnaire)
 		questions=[]
-		print (pk)
 		for question in Question.objects.filter(questionnaire=pk):
 			question_struct={}
 			question_struct['question_text']=question.text
@@ -145,13 +144,18 @@ def question_from_questionnaire(request,pk,pk_question):
 	questionnaire = get_object_or_404(queryset,pk=pk)
 	queryset_question= Question.objects.all().filter(questionnaire=pk)
 	question = get_object_or_404(queryset_question,pk=pk_question)
-	question_struct={}
-	question_struct['question_text']=question.text
-	question_struct['choices']=[]
-#	previous_user_choice=UserChoice.objects.filter(user=request.user.pk,answer__question=question)
+	choice_list=[]
+	
 	for choice in Choice.objects.filter(question=question.pk):
-		question_struct['choices'].append(choice)
-	return render(request,'questionnaire.html',{'questionnaire':questionnaire, 'question':question_struct})
+		choice_struct={}
+		choice_struct['choice']=choice
+		previous_choice=UserChoice.objects.filter(user=request.user.pk, answer=choice)
+		if len(previous_choice)>0:
+			choice_struct['checked']="checked"
+		else:
+			choice_struct['checked']=""
+		choice_list.append(choice_struct)	
+	return render(request,'questionnaire.html',{'questionnaire':questionnaire, 'question_text':question.text, 'choice_list':choice_list})
 
 def pie_result(request,pk):
 	from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
