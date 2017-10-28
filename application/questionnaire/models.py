@@ -23,7 +23,7 @@ class Questionnaire(models.Model):
 	def existing_questions(self):
 		existing_questions=""
 		for i,question in enumerate(Question.objects.filter(questionnaire=self.pk)):
-			existing_questions+=question.text
+			existing_questions+='<a href="/admin/questionnaire/question/'+str(question.pk)+'/change/?questionnaire='+str(self.pk)+'">'+question.text+'</a>'
 			if i!=len(Question.objects.filter(questionnaire=self.pk)):
 				existing_questions+="<br>"
 		return mark_safe(existing_questions)
@@ -42,6 +42,8 @@ class Question(models.Model):
 		verbose_name_plural = 'Questions'
 	def __str__(self):
 		return self.questionnaire.title+": "+self.text
+	def get_edit_url(self):
+		return mark_safe('<a href="/admin/questionnaire/question/'+str(self.pk)+'/change/?questionnaire='+str(self.questionnaire.pk)+'">'+self.text+'</a>')
 
 class Leaning(models.Model):
 	"""

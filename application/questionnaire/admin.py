@@ -48,14 +48,14 @@ class QuestionAdmin(admin.ModelAdmin):
 	inlines = [
 		ChoiceInline,
 	]
-	list_display = ('text',)
+	list_display = ('get_edit_url',)
 	"""
 	Redifine response_add and response_change to redirect to 
 	questionnaires admin page
 	"""
 	def response_add(self, request, obj, post_url_continue=None):
 		return redirect('/admin/questionnaire/questionnaire/')
-	def response_change(request, obj):
+	def response_change(self, request, obj):
 		return redirect('/admin/questionnaire/questionnaire/')
 
 class LeaningInline(admin.TabularInline):
