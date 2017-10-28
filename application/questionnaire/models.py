@@ -73,10 +73,18 @@ class UserChoice(models.Model):
 	"""
 	Model for an answer of one user to one question.
 	One Userchoice is related to one Choice and one User.
+	Information on device is included as well.
 	"""
 	answer = models.ForeignKey(Choice)
 	user = models.ForeignKey(User)
-	
+	deviceType=models.CharField(max_length=50, blank=True, null=True)
+	deviceFamily=models.CharField(max_length=50, blank=True, null=True)
+	deviceBrand=models.CharField(max_length=50, blank=True, null=True)
+	deviceModel=models.CharField(max_length=50, blank=True, null=True)
+	browserFamily=models.CharField(max_length=50, blank=True, null=True)
+	browserVersion=models.CharField(max_length=50, blank=True, null=True)
+	osFamily=models.CharField(max_length=50, blank=True, null=True)
+	osVersion=models.CharField(max_length=50, blank=True, null=True)
 	def __str__(self):
 		return self.user.username+" question: "+str(self.answer.question)+" answer: "+self.answer.text+" "+self.answer.leaning.text
 

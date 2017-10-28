@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'questionnaire',
 	'rest_framework',
+	'django_user_agents',
 ]
 
 REST_FRAMEWORK = {
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'djangoapp.urls'
@@ -137,4 +139,4 @@ PROJECT_ROOT = os.path.abspath(
 )
 STATIC_ROOT = (PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
-
+USER_AGENTS_CACHE = None

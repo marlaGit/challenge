@@ -113,6 +113,8 @@ class UserChoiceViewSet(viewsets.ViewSet):
 		if request.user.pk is None:
 			return HttpResponseRedirect(reverse('login'))
 		user = get_object_or_404(User, pk=request.user.pk)
+		user_agent=request.user_agent
+		print (user_agent)
 		answer = get_object_or_404(Choice, pk=request.POST.get('choice_pk'))
 		question=answer.question
 		questionnaire=question.questionnaire
@@ -131,7 +133,28 @@ class UserChoiceViewSet(viewsets.ViewSet):
 		if len(previous_user_choice)>0:
 			previous_user_choice.delete()
 		if user.is_authenticated:
-			serializer = UserChoiceSerializer(data={'answer':answer.pk,'user':user.pk})
+			data={}
+			data['answer']=answer.pk
+			data['user']=user.pk
+			if user_agent.is_mobile:
+				data['deviceType']='mobile'
+			elif user_agent.is_tablet:
+				data['deviceType']='tablet'
+			elif user_agent.is_pc:
+				data['deviceType']='pc'
+			elif user_agent.is_bot:
+				data['deviceType']='bot'
+			else:
+				data['deviceType']='Unkwnow'
+			data['deviceFamily']=user_agent.device.family
+			data['deviceBrand']=user_agent.device.brand 
+			data['deviceModel']=user_agent.device.model
+			data['browserFamily']=user_agent.browser.family
+			data['browserVersion']=user_agent.browser.version_string
+			data['osFamily']=user_agent.os.family
+			data['osVersion']=user_agent.os.version_string
+			print(data)
+			serializer = UserChoiceSerializer(data=data)
 			serializer.is_valid(raise_exception=True)		
 			serializer.save()
 		if is_last_question ==False:

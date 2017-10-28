@@ -1,11 +1,12 @@
 from django.contrib import admin
-from django.shortcuts import redirect
+from django.shortcuts import redirect 
 from .models import Question, Leaning, Choice, Questionnaire, UserChoice
 
 class UserChoiceAdmin(admin.ModelAdmin):
 	fieldsets= [
 		('answer', {'fields':['answer','user']})
 	]
+	list_display=('__str__', 'deviceType','deviceFamily','deviceBrand','deviceModel','browserFamily','browserVersion','osFamily', 'osVersion')
 
 class ChoiceInline(admin.TabularInline):
 	"""

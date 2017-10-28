@@ -3,4 +3,8 @@ mysqlclient
 djangorestframework
 coreapi
 matplotlib
+pyyaml 
+ua-parser 
+user-agents
+django-user-agents
 
