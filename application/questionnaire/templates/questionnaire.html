@@ -1,0 +1,21 @@
+{% extends "base_template.html"%}
+{% load rest_framework %}
+<html>
+
+{% block main %}
+
+<h1>{{questionnaire.title}}</h1>
+<form action="{% url 'userchoice-list' %}" method="POST">
+    {% csrf_token %}
+
+	<h3>{{question.question_text}}</h3>
+	{% for choice in question.choices%}
+		
+		<input type="radio" name="choice_pk" value="{{choice.pk}} {{choice.checked}}">{{choice.text}}<br>
+	{% endfor %}
+	<input type="hidden" name=pk_user value={{user.pk}}>
+
+	<input type="submit" value="next" />
+</form>
+{% endblock %}
+</html>

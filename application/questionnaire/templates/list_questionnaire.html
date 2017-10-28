@@ -1,0 +1,11 @@
+<html>
+{% extends "base_template.html"%}
+{% block main %}
+
+{% for questionnaire in questionnaires%}
+<h2>Questionnaires: </h2>
+<a href="/questionnaires/{{questionnaire.questionnaire.pk}}/question/{{questionnaire.first_question.pk}}">{{questionnaire.questionnaire.title}}</a>
+{% endfor%}
+
+{% endblock %}
+</html>

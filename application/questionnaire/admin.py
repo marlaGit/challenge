@@ -1,7 +1,11 @@
 from django.contrib import admin
 from django.shortcuts import redirect
-from .models import Question, Leaning, Choice, Questionnaire
+from .models import Question, Leaning, Choice, Questionnaire, UserChoice
 
+class UserChoiceAdmin(admin.ModelAdmin):
+	fieldsets= [
+		('answer', {'fields':['answer','user']})
+	]
 
 class ChoiceInline(admin.TabularInline):
 	"""
@@ -57,7 +61,8 @@ class QuestionnaireAdmin(admin.ModelAdmin):
 	]
 	show_change_link = True
 	list_display = ('title', 'existing_questions', 'create_question',)
-	
+
+admin.site.register(UserChoice, UserChoiceAdmin)	
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Questionnaire, QuestionnaireAdmin)
 

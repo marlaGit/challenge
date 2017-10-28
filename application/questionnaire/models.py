@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.shortcuts import redirect
+from django.urls import reverse
 """
 Model for user and group.
 are from django auth.models
@@ -75,3 +76,7 @@ class UserChoice(models.Model):
 	"""
 	answer = models.ForeignKey(Choice)
 	user = models.ForeignKey(User)
+	
+	def __str__(self):
+		return self.user.username+" question: "+str(self.answer.question)+" answer: "+self.answer.text+" "+self.answer.leaning.text
+

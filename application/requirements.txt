@@ -2,4 +2,5 @@ Django>=1.8,<2.0
 mysqlclient
 djangorestframework
 coreapi
+matplotlib
 

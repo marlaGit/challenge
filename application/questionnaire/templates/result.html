@@ -1,0 +1,9 @@
+{% extends "base_template.html"%}
+{% load rest_framework %}
+
+
+{% block main %}
+<h2> {{questionnaire.title}}</h2>
+<img src={% url 'pie_result' pk=questionnaire.pk %}></img>
+{% endblock %}
+
