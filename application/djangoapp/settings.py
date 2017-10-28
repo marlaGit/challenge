@@ -140,3 +140,5 @@ PROJECT_ROOT = os.path.abspath(
 STATIC_ROOT = (PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 USER_AGENTS_CACHE = None
+GEOIP_PATH = '/application/geoipDB/'
+

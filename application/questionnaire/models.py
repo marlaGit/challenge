@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.shortcuts import redirect
 from django.urls import reverse
+
 """
 Model for user and group.
 are from django auth.models
@@ -85,6 +86,11 @@ class UserChoice(models.Model):
 	browserVersion=models.CharField(max_length=50, blank=True, null=True)
 	osFamily=models.CharField(max_length=50, blank=True, null=True)
 	osVersion=models.CharField(max_length=50, blank=True, null=True)
+	ipAddress=models.CharField(max_length=50, blank=True, null=True)
+	ipCountry=models.CharField(max_length=50, blank=True, null=True)
+	ipCity=models.CharField(max_length=50, blank=True, null=True)
+	ipGPSLatitude=models.FloatField(blank=True, null=True, default=None)
+	ipGPSLongitude=models.FloatField(blank=True,null=True, default=None)
 	def __str__(self):
 		return self.user.username+" question: "+str(self.answer.question)+" answer: "+self.answer.text+" "+self.answer.leaning.text
 

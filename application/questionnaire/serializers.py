@@ -40,5 +40,9 @@ class ChoiceSerializer(serializers.ModelSerializer):
 class UserChoiceSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = UserChoice
-		fields = ('answer', 'user', 'deviceType','deviceFamily','deviceBrand','deviceModel','browserFamily','browserVersion','osFamily', 'osVersion')
+		fields = ('answer', 'user',
+ 			'deviceType','deviceFamily','deviceBrand','deviceModel',
+			'browserFamily','browserVersion',
+			'osFamily', 'osVersion',
+			'ipAddress', 'ipCountry','ipCity','ipGPSLatitude','ipGPSLongitude')
 

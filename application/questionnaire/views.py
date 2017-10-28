@@ -12,8 +12,9 @@ from .forms import UserForm
 import random
 import matplotlib
 import numpy as np
-
-
+from ipware.ip import get_real_ip, get_ip
+from django.contrib.gis.geoip2 import GeoIP2
+from geoip2.errors import AddressNotFoundError
 
 """
 Using ViewSet to generate views for REST API
@@ -114,7 +115,6 @@ class UserChoiceViewSet(viewsets.ViewSet):
 			return HttpResponseRedirect(reverse('login'))
 		user = get_object_or_404(User, pk=request.user.pk)
 		user_agent=request.user_agent
-		print (user_agent)
 		answer = get_object_or_404(Choice, pk=request.POST.get('choice_pk'))
 		question=answer.question
 		questionnaire=question.questionnaire
@@ -153,7 +153,25 @@ class UserChoiceViewSet(viewsets.ViewSet):
 			data['browserVersion']=user_agent.browser.version_string
 			data['osFamily']=user_agent.os.family
 			data['osVersion']=user_agent.os.version_string
-			print(data)
+			data['ipAddress']=get_real_ip(request)
+			
+			if data['ipAddress'] is None:
+				data['ipAddress']=get_ip(request)
+			g=GeoIP2()
+			try:
+				city=g.city(data['ipAddress'])
+				country=g.country(data['ipAddress'])
+				data['ipCountry']=country.get('country_name')
+				data['ipCity']=city.get('city')
+				data['ipGPSLatitude']=city.get('latitude')
+				data['ipGPSLongitude']=city.get('longitude')
+			
+			except AddressNotFoundError:
+				data['ipCountry']=''
+				data['ipCity']=''
+				data['ipGPSLatitude']=0
+				data['ipGPSLongitude']=0
+							
 			serializer = UserChoiceSerializer(data=data)
 			serializer.is_valid(raise_exception=True)		
 			serializer.save()

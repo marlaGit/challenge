@@ -2,11 +2,22 @@ from django.contrib import admin
 from django.shortcuts import redirect 
 from .models import Question, Leaning, Choice, Questionnaire, UserChoice
 
+
+
+
 class UserChoiceAdmin(admin.ModelAdmin):
+	model = UserChoice
 	fieldsets= [
 		('answer', {'fields':['answer','user']})
 	]
-	list_display=('__str__', 'deviceType','deviceFamily','deviceBrand','deviceModel','browserFamily','browserVersion','osFamily', 'osVersion')
+	
+	list_display=('__str__',
+		'deviceType','deviceFamily','deviceBrand','deviceModel',
+		'browserFamily','browserVersion',
+		'osFamily', 'osVersion',
+		'ipAddress', 'ipCountry','ipCity','ipGPSLatitude','ipGPSLongitude')
+	
+
 
 class ChoiceInline(admin.TabularInline):
 	"""

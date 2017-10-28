@@ -7,4 +7,7 @@ pyyaml
 ua-parser 
 user-agents
 django-user-agents
+geoIP2
+django-ipware
+
 
