@@ -109,6 +109,18 @@ def create_new_user(request):
 class UserChoiceViewSet(viewsets.ViewSet):
 	queryset = UserChoice.objects.all()
 	permission_classes = (permissions.AllowAny,)
+	def list(self, request):
+		if not request.user.is_superuser:
+			self.queryset=UserChoice.objects.all().filter(user=request.user.pk)
+		else:
+			self.queryset=UserChoice.objects.all()
+		serializer = UserChoiceSerializer(self.queryset, many=True)
+
+		return Response(serializer.data)
+	def retrieve(self, request, pk=None):
+		userchoice = get_object_or_404(self.queryset, pk=pk)
+		serializer = UserChoiceSerializer(userchoice)		
+		return Response(serializer.data)
 
 	def create(self, request):
 		if request.user.pk is None:
