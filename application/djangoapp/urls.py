@@ -19,6 +19,7 @@ schema_view = get_schema_view(title='Questionnaire API')
 
 
 urlpatterns = [
+	url(r'^$',views.login_user),
 	url(r'^', include(router.urls)),
 	url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 	url(r'^login/$', views.login_user, name='login'),

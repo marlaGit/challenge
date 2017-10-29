@@ -37,8 +37,6 @@ class QuestionnaireViewSet(viewsets.ViewSet):
 	queryset = Questionnaire.objects.all()
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 	def list(self, request):
-		serializer = QuestionnaireSerializer(self.queryset, many=True)
-
 		questionnaires_struct = []
 		for questionnaire in self.queryset:
 			questionnaire_struct = {}
@@ -46,6 +44,7 @@ class QuestionnaireViewSet(viewsets.ViewSet):
 			questionnaire_struct['first_question']=Question.objects.filter(questionnaire=questionnaire.pk).first()
 			questionnaires_struct.append(questionnaire_struct)
 		return render(request,'list_questionnaire.html',{'questionnaires':questionnaires_struct})
+		
 	def retrieve(self, request, pk=None):
 		questionnaire = get_object_or_404(self.queryset, pk=pk)
 		serializer = QuestionnaireSerializer(questionnaire)
