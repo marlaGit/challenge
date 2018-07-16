@@ -3,12 +3,71 @@ Introduction
 
 This document will guide you through the app.
 
+
+Challenge
+=========
+
+`The goal is to create a simple web application using a modern web development framework.`
+ 
+`In particular, using RESTful APIs and a mobile-first approach, that allows users to fill in a questionnaire and receive graphical feedback in return.
+
+All answers should be stored in a database of your choice, together with metadata such as IP address, browsing source, and whatever additional information you are capable of extracting.
+
+The questions and answers in the questionnaire should be dynamically generated on the server side, or using the standard features of your framework (i.e., not just static HTML). An example of the questionnaire is given below.
+
+The users' answers on the front-end should be collected by the server and used to calculate a simple pie chart with the results. The pie chart should then be displayed to the user.
+
+Questionnaire
+=========
+
+This questionnaire is based on the following popular infographic, that tests your political leanings in terms of "left" and "right":
+http://www.dailyinfographic.com/wp-content/uploads/2012/08/leftright_US_1416.gif
+
+You can use the following example questions and answers.
+
+1. How would you best describe an ideal government?
+- Is progressive by nature
+- Is conservative by nature
+- Tends to look into the future
+- Tends to look into the past
+- Values meritocracy
+- Values egalitarianism
+- Promotes free trade
+- Promotes fair trade
+- Focuses on the individual
+- Focuses on society
+
+2. Which traits would you pass on to your child?
+- Self-reliance
+- Self-nurturing
+- Self-defence
+- Openness
+- Moral strength
+- Empathy
+- Self-discipline
+- Self-examination
+
+3. Would you rather vote for:
+- Aggression
+- Diplomacy
+- Upholding order
+- Fairness
+- Helping those who help themselves
+- Helping those who cannot help themselves
+- Champions of opportunity
+- Champions of the downtrodden
+
+For simplicity, the answers are organized in alternated left/right leaning.
+
+Your server side "calculation engine" will weight these responses and determine the user's political leanings, in terms of % left / % right, and generate a 2-slice pie chart accordingly.
+
+
 Installation
 ============
 
 1. clone the repository :
 
-`git clone https://maria_carla@bitbucket.org/maria_carla/challenge.git`
+`git clone https://github.com/marlaGit/challenge`
 
 2. enter into the directory:
 
